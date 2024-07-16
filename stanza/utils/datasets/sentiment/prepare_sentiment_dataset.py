@@ -241,6 +241,19 @@ it_sentipolc16
 
 another option not implemented yet: absita18
   http://sag.art.uniroma2.it/absita/data/
+
+
+Polish
+------
+PolEmo 2.0 Sentiment Analysis Dataset for CoNLL
+  download dataset_conll.zip from: https://clarin-pl.eu/dspace/handle/11321/710
+  extract and put it in $SENTIMENT_BASE/polish/PolEmo2.0 directory, so that 
+  all three of all.sentence.dev/test/train.txt files are in
+  $SENTIMENT_BASE/polish/PolEmo2.0/dataset_conll/dataset_conll directory
+
+  python3 stanza.utils.datasets.sentiment.prepare_sentiment_dataset pl_polemo2
+ 
+
 """
 
 import os
@@ -262,6 +275,8 @@ from stanza.utils.datasets.sentiment import process_slsd
 from stanza.utils.datasets.sentiment import process_sst
 from stanza.utils.datasets.sentiment import process_usage_german
 from stanza.utils.datasets.sentiment import process_vsfc_vietnamese
+from stanza.utils.datasets.sentiment import process_pl_polemo2
+
 
 from stanza.utils.datasets.sentiment import process_utils
 
@@ -396,6 +411,9 @@ def convert_ren(paths, dataset_name, *args):
     out_directory = paths['SENTIMENT_DATA_DIR']
     process_ren_chinese.main(in_directory, out_directory, dataset_name)
 
+def convert_pl_polemo2(paths, dataset_name, *args):
+    process_pl_polemo2.convert_polemo2(paths['SENTIMENT_BASE'], paths['SENTIMENT_DATA_DIR'], dataset_name)
+
 DATASET_MAPPING = {
     "de_sb10k":     convert_sb10k,
     "de_scare":     convert_scare,
@@ -413,6 +431,8 @@ DATASET_MAPPING = {
     "it_sentipolc16": convert_it_sentipolc16,
 
     "mr_l3cube":    convert_mr_l3cube,
+
+    "pl_polemo2": convert_pl_polemo2,
 
     "vi_vsfc":      convert_vi_vsfc,
 
